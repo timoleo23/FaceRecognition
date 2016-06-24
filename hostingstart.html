@@ -13,6 +13,7 @@
 	<video id="video" width="640" height="480" autoplay></video>
 	<button id="snap" class="sexyButton">Snap Photo</button>
 	<canvas id="canvas" width="640" height="480"></canvas>
+	<p id="pngHolder"> </p>
 
 	<script>
 
@@ -47,8 +48,8 @@
 
 			// Trigger photo take
 			document.getElementById("snap").addEventListener("click", function() {
-				//context.drawImage(video, 0, 0, 640, 480);	
-				canvas.appendChild(convertCanvasToImage(video));
+				image = context.drawImage(video, 0, 0, 640, 480);	
+				document.getElementById("pngHolder").appendChild(convertCanvasToImage(image));
 			}
 			);
 		}, false);
