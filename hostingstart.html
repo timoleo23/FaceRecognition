@@ -51,7 +51,7 @@
 				context.drawImage(video, 0, 0, 640, 480);	
 				// Converts canvas to an image
 				var image = new Image();
-				image.src = video.toDataURL("image/png");
+				image.src = context.toDataURL("image/png");
 				document.getElementById("pngHolder").appendChild(image);
 			}
 			);
