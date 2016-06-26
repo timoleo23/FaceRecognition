@@ -44,6 +44,7 @@
 					pngHolder.removeChild(pngHolder.childNodes[0]);
 				}
 				pngHolder.appendChild(convertCanvasToImage(canvas));
+				pngHolder.childNodes[0].id = pngimage;
 			}, false);
 			
 			// Converts canvas to an image
@@ -58,8 +59,27 @@
 	</script>
 	   
 	<script>                
-		jQuery(document).ready(function(){
+		jQuery(function($){
 			console.log("jQuery est prêt !");
+			$.ajax({		
+				url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
+				type: 'POST',
+				dataType: 'JSON',
+				headers: {
+					'Content-Type':'application/json',
+					'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+				},
+				data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
+				processData: false,
+				success: function( data ){
+					console.log( JSON.stringify( data ) );
+					return data;
+				},
+				error: function( errorThrown ){
+					console.log( errorThrown );
+					return errorThrown;
+				}
+			});
 		});
     </script>
 	
@@ -73,7 +93,9 @@
 	<video id="video" width="640" height="480" autoplay></video>
 	<button id="snap" class="sexyButton">Snap Photo</button>
 	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-	<div id="pngHolder" style="margin-top: 10px;"></div>
+	<div id="pngHolder" style="margin-top: 10px;"> 
+		<img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage">
+	</div>
 
 </body>
 </html>
