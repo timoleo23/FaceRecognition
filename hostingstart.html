@@ -3,18 +3,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=0.5">
 	<title>Face Recognition</title>
-</head>
-<body>
-<!--
-	Ideally these elements aren't created until it's confirmed that the 
-	client supports video/camera, but for the sake of illustrating the 
-	elements involved, they are created with markup (not JavaScript)
--->
-	<video id="video" width="640" height="480" autoplay></video>
-	<button id="snap" class="sexyButton">Snap Photo</button>
-	<canvas id="canvas" width="640" height="480"></canvas>
-	<img id="pngHolder"></img>
-
+	
 	<script>
 
 		// Put event listeners into place
@@ -23,7 +12,7 @@
 			var canvas = document.getElementById("canvas"),
 				context = canvas.getContext("2d"),
 				video = document.getElementById("video"),
-				videoObj = { "video": true },
+				videoObj = { "video": true, "audio": false },
 				errBack = function(error) {
 					console.log("Video capture error: ", error.code); 
 				};
@@ -49,15 +38,35 @@
 			// Trigger photo take
 			document.getElementById("snap").addEventListener("click", function() {
 				context.drawImage(video, 0, 0, 640, 480);	
-				// Converts canvas to an image
+				pngHolder = document.getElementById("pngHolder")
+				if (pngHolder.hasChildNodes()) { 
+					pngHolder.removeChild(pngHolder.childNodes[0]);
+				}
+				pngHolder.appendChild(convertCanvasToImage(canvas));
+			}, false);
+			
+			// Converts canvas to an image
+			function convertCanvasToImage(canvas) {
 				var image = new Image();
 				image.src = canvas.toDataURL("image/png");
-				document.getElementById("pngHolder").appendChild(image);
+				return image;
 			}
-			);
+			
 		}, false);
 
 	</script>
+	
+</head>
+<body>
+<!--
+	Ideally these elements aren't created until it's confirmed that the 
+	client supports video/camera, but for the sake of illustrating the 
+	elements involved, they are created with markup (not JavaScript)
+-->
+	<video id="video" width="640" height="480" autoplay></video>
+	<button id="snap" class="sexyButton">Snap Photo</button>
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<p id="pngHolder"></p>
 
 </body>
 </html>
