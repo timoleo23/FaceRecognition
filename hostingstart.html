@@ -58,15 +58,9 @@
 	</script>
 	   
 	<script>                
-        function domReady() {
-            $('#btn').click( showMessage );
-        }
-        
-        function showMessage() {
-            $('#message').fadeIn('slow');
-        }
-        
-        $( domReady );
+		jQuery(document).ready(function(){
+			console.log("jQuery est prêt !");
+		});
     </script>
 	
 </head>
