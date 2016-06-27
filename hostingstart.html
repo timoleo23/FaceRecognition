@@ -87,7 +87,7 @@
 						'Content-Type':'application/json',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-					data: JSON.stringify( { "faceId":faceID, "faceListId":"authorized", "maxNumOfCandidatesReturned":1 } ),
+					data: JSON.stringify( { "faceId":readValue("faceID"), "faceListId":"authorized", "maxNumOfCandidatesReturned":1 } ),
 					processData: false,
 					error: function( errorThrown ){
 						// return errorThrown;
