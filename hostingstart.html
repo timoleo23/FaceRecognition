@@ -47,7 +47,7 @@
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
 				// Detect faces on the image calling the FACE API
-				var faceID = 0;
+				var faceID = "";
 				
 				$.ajax({		
 					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
