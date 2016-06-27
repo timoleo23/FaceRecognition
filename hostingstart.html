@@ -47,60 +47,67 @@
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
 				// Detect faces on the image calling the FACE API
-				var faceID = "";
+				// var faceID = "";
 				
-				$.ajax({		
-					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
-					type: 'POST',
-					dataType: 'JSON',
-					headers: {
-//						'Content-Type':'application/json',
-						'Content-Type':'application/octet-stream',
-						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
-					},			
-//					data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
-					data: binaryData,
-					processData: false,
-					error: function( errorThrown ){
-						// return errorThrown;
-						console.log( errorThrown );
-					},
-					success: function( data ){
-						// return data;
-						console.log( JSON.stringify( data ) );	
-//						var tr;
-//						$('faceatab').empty;
-						data.forEach(function(face){
-							console.log( face.faceAttributes.gender);
-							console.log( face.faceAttributes.age);
-							faceID = face.faceId;
-						});
-					}
-				});
+				var faceID = function detect() {
+					$.ajax({		
+						url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
+						type: 'POST',
+						dataType: 'JSON',
+						headers: {
+	//						'Content-Type':'application/json',
+							'Content-Type':'application/octet-stream',
+							'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+						},			
+	//					data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
+						data: binaryData,
+						processData: false,
+						error: function( errorThrown ){
+							// return errorThrown;
+							console.log( errorThrown );
+						},
+						success: function( data ){
+							// return data;
+							console.log( JSON.stringify( data ) );	
+	//						var tr;
+	//						$('faceatab').empty;
+							data.forEach(function(face){
+								console.log( face.faceAttributes.gender);
+								console.log( face.faceAttributes.age);
+								faceID = face.faceId;
+								return faceID
+							});
+						}
+					});
+				}
+				
 console.log( faceID);
+
 				// Find similarities to authorize access
-				$.ajax({		
-					url: 'https://api.projectoxford.ai/face/v1.0/findsimilars',
-					type: 'POST',
-					dataType: 'JSON',
-					headers: {
-						'Content-Type':'application/json',
-						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
-					},			
-					data: JSON.stringify( { 'faceId':faceID, 'faceListId':'authorized', 'maxNumOfCandidatesReturned':1 } ),
-					processData: false,
-					error: function( errorThrown ){
-						// return errorThrown;
-						console.log( errorThrown );
-					},
-					success: function( data ){
-						// return data;
-						console.log( JSON.stringify( data ) );	
-						data.forEach(function(face){
-							console.log( face.confidence);
-						});
-					}
-				});
+				function findsimilars(faceID) {
+					$.ajax({		
+						url: 'https://api.projectoxford.ai/face/v1.0/findsimilars',
+						type: 'POST',
+						dataType: 'JSON',
+						headers: {
+							'Content-Type':'application/json',
+							'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+						},			
+						data: JSON.stringify( { 'faceId': faceID , 'faceListId':'authorized', 'maxNumOfCandidatesReturned':1 } ),
+						processData: false,
+						error: function( errorThrown ){
+							// return errorThrown;
+							console.log( errorThrown );
+						},
+						success: function( data ){
+							// return data;
+							console.log( JSON.stringify( data ) );	
+							data.forEach(function(face){
+								console.log( face.confidence);
+							});
+						}
+					});
+				}	
 				
 			}, false);
 			
