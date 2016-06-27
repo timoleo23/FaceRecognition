@@ -66,20 +66,17 @@
 					},
 					success: function( data ){
 						// return data;
+						console.log( JSON.stringify( data ) );	
 						var tr;
-						var face = JSON.stringify( data );
-						console.log( face );	
 						$('faceatab').empty;
-						face.forEach(function(){
-							console.log( faceAttributes.gender);
-							console.log( faceAttributes.age);
+						data.forEach(function(face){
+							console.log( face.faceAttributes.gender);
+							console.log( face.faceAttributes.age);
+							tr = $('<tr/>');
+							tr.append("<td>" + face.faceAttributes.gender + "</td>");
+							tr.append("<td>" + face.faceAttributes.age + "</td>");
+							$('faceatab').append(tr);
 						});
-		//				for (var i = 0; i < face.length; i++) {
-		//					tr = $('<tr/>');
-		//					tr.append("<td>" + face[i].faceAttributes.gender + "</td>");
-		//					tr.append("<td>" + face[i].faceAttributes.age + "</td>");
-		//					$('faceatab').append(tr);
-		//				}	
 					}
 				});
 			
