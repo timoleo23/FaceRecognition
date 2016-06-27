@@ -51,6 +51,7 @@
 				console.log(faceID);
 				var confidence = findsimilars(faceID);
 				console.log(confidence);
+				logintest(0.8,confidence);	// Seuil de confiance à 80% de match
 				
 			}, false);
 			
@@ -62,6 +63,14 @@
 				return image;
 			}
 
+			function logintest(level,confidence) {
+				if( confidence > level) {
+					document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
+				} else {
+					document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
+				}
+			}
+			
 			// Detect faces on the image calling the FACE API
 			function detect(binaryData){
 				var faceID = true;
@@ -108,6 +117,7 @@
 					},			
 					data: JSON.stringify( { 'faceId': faceID , 'faceListId':'authorized', 'maxNumOfCandidatesReturned':1 } ),
 					processData: false,
+					async: false,
 					error: function( errorThrown ){
 						console.log( errorThrown );
 						return errorThrown;
@@ -163,6 +173,7 @@
 	<video id="video" width="640" height="480" autoplay></video>
 	<button id="snap" class="sexyButton">Login</button>
 	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+	<p id="confidence"></p>
 
 </body>
 </html>
