@@ -60,13 +60,26 @@
 //					data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
 					data: binaryData,
 					processData: false,
-					success: function( data ){
-						console.log( JSON.stringify( data ) );
-						// return data;
-					},
 					error: function( errorThrown ){
-						console.log( errorThrown );
 						// return errorThrown;
+						console.log( errorThrown );
+					},
+					success: function( data ){
+						// return data;
+						console.log( JSON.stringify( data ) );
+						context.beginPath();
+						data.forEach(function(face){
+							var rect = face.faceRectangle;
+							context.rect(rect.left, rect.top, rect.width, rect.height);
+							context.lineWidth = 7;
+							context.strokeStyle = 'red';
+							context.stroke();
+							var faceAttributes = face.faceAttributes;
+							context.font = '30pt Calibri';
+							context.textAlign = 'center';
+							context.fillStyle = 'blue';
+							context.fillText(faceAttributes.gender, rect.left+(rect.width/2), rect.top-5);	
+}						);							
 					}
 				});
 			
