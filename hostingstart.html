@@ -66,8 +66,9 @@
 					},
 					success: function( data ){
 						// return data;
-						console.log( JSON.stringify( data ) );	
 						var tr;
+						var faceattr = JSON.stringify( data );
+						console.log( faceattr );	
 						$('faceattributes').empty;
 						for (var i = 0; i < data.length; i++) {
 							tr = $('<tr/>');
