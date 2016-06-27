@@ -47,70 +47,10 @@
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
 				// Detect faces on the image calling the FACE API
-				var faceID = "";
-				
-				function detect() {
-					$.ajax({		
-						url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
-						type: 'POST',
-						dataType: 'JSON',
-						headers: {
-	//						'Content-Type':'application/json',
-							'Content-Type':'application/octet-stream',
-							'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
-						},			
-	//					data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
-						data: binaryData,
-						processData: false,
-						error: function( errorThrown ){
-							// return errorThrown;
-							console.log( errorThrown );
-						},
-						success: function( data ){
-							// return data;
-							console.log( JSON.stringify( data ) );	
-	//						var tr;
-	//						$('faceatab').empty;
-							data.forEach(function(face){
-								console.log( face.faceAttributes.gender);
-								console.log( face.faceAttributes.age);
-								console.log( face.faceId);
-								faceID = face.faceId;
-								return faceID;
-							});
-						}
-					});
-				}
-				
-
-				console.log(detect);
+				var faceID = detect();
 				console.log(faceID);
-
-				// Find similarities to authorize access
-				function findsimilars(faceID) {
-					$.ajax({		
-						url: 'https://api.projectoxford.ai/face/v1.0/findsimilars',
-						type: 'POST',
-						dataType: 'JSON',
-						headers: {
-							'Content-Type':'application/json',
-							'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
-						},			
-						data: JSON.stringify( { 'faceId': faceID , 'faceListId':'authorized', 'maxNumOfCandidatesReturned':1 } ),
-						processData: false,
-						error: function( errorThrown ){
-							// return errorThrown;
-							console.log( errorThrown );
-						},
-						success: function( data ){
-							// return data;
-							console.log( JSON.stringify( data ) );	
-							data.forEach(function(face){
-								console.log( face.confidence);
-							});
-						}
-					});
-				}	
+				var confidence = findsimilars(faceID);
+				console.log(confidence);
 				
 			}, false);
 			
@@ -121,7 +61,68 @@
 				image.id = "pngimage";
 				return image;
 			}
-		
+
+			// Detect faces on the image calling the FACE API
+			function detect(){
+				var faceID = true;
+				$.ajax({		
+					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
+					type: 'POST',
+					dataType: 'JSON',
+					headers: {
+//						'Content-Type':'application/json',
+						'Content-Type':'application/octet-stream',
+						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+					},			
+//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+					data: binaryData,
+					processData: false,
+					async: false,
+					error: function( errorThrown ){
+						console.log( errorThrown );
+						return errorThrown;
+					},
+					success: function( data ){
+						console.log( JSON.stringify( data ) );	
+						data.forEach(function(face){
+					//		console.log( face.faceAttributes.gender);
+					//		console.log( face.faceAttributes.age);
+					//		console.log( face.faceId);
+							faceID = face.faceId;
+						});
+					}
+				});
+				return faceID;
+			}
+
+			// Find similarities to authorize access
+			function findsimilars(faceID) {
+				var confidence = false;
+				$.ajax({		
+					url: 'https://api.projectoxford.ai/face/v1.0/findsimilars',
+					type: 'POST',
+					dataType: 'JSON',
+					headers: {
+						'Content-Type':'application/json',
+						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+					},			
+					data: JSON.stringify( { 'faceId': faceID , 'faceListId':'authorized', 'maxNumOfCandidatesReturned':1 } ),
+					processData: false,
+					error: function( errorThrown ){
+						console.log( errorThrown );
+						return errorThrown;
+					},
+					success: function( data ){
+						console.log( JSON.stringify( data ) );	
+						data.forEach(function(face){
+					//		console.log(face.confidence);
+							confidence = face.confidence;
+						});
+					}
+				});
+				return confidence
+			}	
+				
 			function dataURItoBlob(dataURI) {
 			  // convert base64 to raw binary data held in a string
 			  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -152,7 +153,7 @@
 		});
     </script>
 	
-</head>
+</head>	
 <body>
 <!--
 	Ideally these elements aren't created until it's confirmed that the 
@@ -162,7 +163,6 @@
 	<video id="video" width="640" height="480" autoplay></video>
 	<button id="snap" class="sexyButton">Login</button>
 	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-	<table id="faceatab"></table>
 
 </body>
 </html>
