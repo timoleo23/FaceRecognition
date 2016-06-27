@@ -67,15 +67,12 @@
 					success: function( data ){
 						// return data;
 						console.log( JSON.stringify( data ) );	
-						var tr;
-						$('faceatab').empty;
+//						var tr;
+//						$('faceatab').empty;
 						data.forEach(function(face){
 							console.log( face.faceAttributes.gender);
 							console.log( face.faceAttributes.age);
-							tr = $('<tr/>');
-							tr.append("<td>" + face.faceAttributes.gender + "</td>");
-							tr.append("<td>" + face.faceAttributes.age + "</td>");
-							$('faceatab').append(tr);
+							$('#faceatab > tbody:last-child').append('<tr><td>' + face.faceAttributes.gender + '</td><td>'  + face.faceAttributes.age +'</td></tr>');
 						});
 					}
 				});
