@@ -1,0 +1,7 @@
+
+var geoloc_init=function(){var el=document.getElementById('geolocLogo');if(!el){return false;}
+if(navigator.geolocation){var rightButton=document.getElementById('right-buttons');if(!rightButton){return false;}
+if(rightButton.firstChild!==el){rightButton.insertBefore(el,rightButton.firstChild);}
+var href=el.getAttribute('href');el.removeAttribute('href');var behaviour=function(evt){evt.preventDefault();evt.stopPropagation();navigator.geolocation.getCurrentPosition(function(position){var lat=position.coords.latitude;var lng=position.coords.longitude;el.setAttribute('onclick','');href=href.replace('#','');href+='?lat='+lat+'&lng='+lng;Bk.initContext();Bk.replace({loader:{from:'contentWithoutMenuAndFooter',to:'transitionLoaderSection',transition:'fade'},content:{from:'transitionLoaderSection',to:'contentWithoutMenuAndFooter',url:href,transition:'fade'}});Bk.releaseContext();},function(error){console.log("[CA-INFO] - Won't geolocate user. (either because denied by user or geolocation failed");alert("Nous n'avons pas réussi à vous géolocaliser. Veuillez utiliser la recherche par caisse régionale ci-dessous.");},{timeout:5000});return false;}
+document.addEventListener?el.addEventListener('click',behaviour,false):el.attachEvent('onclick',behaviour);}}
+Bk.onPageLoaded(geoloc_init);

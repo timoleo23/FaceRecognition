@@ -1,0 +1,4 @@
+
+var loginModule=(function(){var regExp=/[^0-9]/g;function bind(){$('#loginValue').on('blur',function(){var value=$('#loginValue').attr('value');value=value.replace(regExp,"");$('#loginValue').attr('value',value);});$('input[name="search.postalCode"]').on('blur',function(){var value=$('input[name="search.postalCode"]').attr('value');value=value.replace(regExp,"");$('input[name="search.postalCode"]').attr('value',value);});$('#defaultSection input[name="department"]').on('blur',function(){var value=$('input[name="department"]').get(1).value;value=value.replace(regExp,"");$('input[name="department"]').get(1).value=value;});}
+function _init(){$(document).on('bkPageLoaded',bind);}
+return{init:_init,};}());loginModule.init();
