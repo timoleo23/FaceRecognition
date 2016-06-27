@@ -54,7 +54,13 @@
 				return image;
 			}
 			
-			// Detect faces on the image calling the FACE API
+		}, false);
+
+	</script>
+	   
+	<script>                
+		jQuery(function($){
+			console.log("jQuery est prêt !");
 			$.ajax({		
 				url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
 				type: 'POST',
@@ -67,21 +73,13 @@
 				processData: false,
 				success: function( data ){
 					console.log( JSON.stringify( data ) );
-					// return data;
+					return data;
 				},
 				error: function( errorThrown ){
 					console.log( errorThrown );
-					// return errorThrown;
+					return errorThrown;
 				}
 			});
-			
-		}, false);
-
-	</script>
-	   
-	<script>                
-		jQuery(function($){
-			console.log("jQuery est prêt !");
 		});
     </script>
 	
@@ -96,7 +94,7 @@
 	<button id="snap" class="sexyButton">Snap Photo</button>
 	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 	<div id="pngHolder" style="margin-top: 10px;"> 
-<!--		<img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage"> -->
+		<img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage">
 	</div>
 
 </body>
