@@ -40,40 +40,44 @@
 			document.getElementById("snap").addEventListener("click", function() {
 				context.drawImage(video, 0, 0, 640, 480);	
 				pngHolder = document.getElementById("pngHolder")
-				if (pngHolder.hasChildNodes()) { 
-					pngHolder.removeChild(pngHolder.childNodes[0]);
-				}
-				pngHolder.appendChild(convertCanvasToImage(canvas));
-				pngHolder.childNodes[0].setAttribute("id","pngimage");
+				pngimage = document.getElementById("pngimage")				
+//				if (pngHolder.hasChildNodes()) { 
+//					pngHolder.removeChild(pngHolder.childNodes[1]);
+//				}
+				pngHolder.replaceChild( convertCanvasToImage(canvas) , pngimage );
+//				pngHolder.appendChild(convertCanvasToImage(canvas));
+//				pngHolder.childNodes[1].setAttribute("id","pngimage");
+				
+				// Detect faces on the image calling the FACE API - MAKE IT A SELF FUNCTION LATER
+				$.ajax({		
+					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
+					type: 'POST',
+					dataType: 'JSON',
+					headers: {
+						'Content-Type':'application/json',
+						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+					},
+					data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
+					processData: false,
+					success: function( data ){
+						console.log( JSON.stringify( data ) );
+						// return data;
+					},
+					error: function( errorThrown ){
+						console.log( errorThrown );
+						// return errorThrown;
+					}
+				});
+			
 			}, false);
 			
 			// Converts canvas to an image
 			function convertCanvasToImage(canvas) {
 				var image = new Image();
 				image.src = canvas.toDataURL("image/png");
+				image.id = "pngimage";
 				return image;
 			}
-			
-			// Detect faces on the image calling the FACE API
-			$.ajax({		
-				url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
-				type: 'POST',
-				dataType: 'JSON',
-				headers: {
-					'Content-Type':'application/json',
-					'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
-				},
-				data: JSON.stringify( { "url": document.getElementById('pngimage').src } ),
-				processData: false,
-				success: function( data ){
-					console.log( JSON.stringify( data ) );
-					// return data;
-				},
-				error: function( errorThrown ){
-					console.log( errorThrown );
-					// return errorThrown;
-				}
-			});
 			
 		}, false);
 
@@ -96,7 +100,7 @@
 	<button id="snap" class="sexyButton">Snap Photo</button>
 	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 	<div id="pngHolder" style="margin-top: 10px;"> 
-<!--		<img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage"> -->
+		<img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage">
 	</div>
 
 </body>
