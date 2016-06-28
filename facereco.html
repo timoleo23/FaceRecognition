@@ -72,7 +72,7 @@
 		
 			// Trigger photo take
 			document.getElementById("snap").addEventListener("click", function() {
-				context.drawImage(video, 0, 0, 640, 480);	
+				context.drawImage(video, 0, 0);	
 				pngHolder = document.getElementById("pngHolder")
 				pngimage = document.getElementById("pngimage")				
 
@@ -214,8 +214,8 @@
 		}
 		</style>
 		
-		<video id="video" width="640" height="480" autoplay></video>
-		<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+		<video id="video" width="400" height="320" autoplay></video>
+		<canvas id="canvas" width="400" height="320" style="display:none;"></canvas>
 		
 		<div class="fsbmit my_content_container">
 			<button id="snap">Vérifier Identité</button>
