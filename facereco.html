@@ -109,18 +109,18 @@
 			
 			// Detect faces on the image calling the FACE API
 			function detect(binaryData){
-				var faceID = true;
+				var faceID = "error";
 				$.ajax({		
 					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
-//						'Content-Type':'application/json',
-						'Content-Type':'application/octet-stream',
+						'Content-Type':'application/json',
+//						'Content-Type':'application/octet-stream',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
-					data: binaryData,
+					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+//					data: binaryData,
 					processData: false,
 					async: false,
 					error: function( errorThrown ){
