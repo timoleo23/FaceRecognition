@@ -7,12 +7,12 @@
 	<script type="text/javascript">Object.defineProperty(window.navigator, 'userAgent', { get: function(){ return 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'; } });Object.defineProperty(window.navigator, 'vendor', { get: function(){ return 'Apple, Inc.'; }}); Object.defineProperty(window.navigator, 'platform', { get: function(){ return 'iPhone'; } });</script>
 -->
 	<title>Crédit Agricole d'Ile-de-France - Banque en ligne mobile</title>
-<!--
+
 	<meta name="viewport" content="width=320.1, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="description" content="Site mobile du Crédit Agricole: accédez à vos comptes bancaires, effectuez des virements, découvrez nos services."><link rel="stylesheet" href="./home_files/bk.css"><link rel="stylesheet" href="./home_files/wope.css"><link href="./home_files/default.css" rel="stylesheet" type="text/css">
--->
+
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.js"></script>
 <!--	
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js"></script>
@@ -110,12 +110,12 @@
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
-//						'Content-Type':'application/json',
-						'Content-Type':'application/octet-stream',
+						'Content-Type':'application/json',
+//						'Content-Type':'application/octet-stream',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
-					data: binaryData,
+					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+//					data: binaryData,
 					processData: false,
 					async: false,
 					error: function( errorThrown ){
@@ -203,8 +203,7 @@
 <h2 class="bk-hx sub_header padded bottom_shadow" style="background-color:#E2E9E9; color:#046366;"> ACCÈS COMPTE - RECONNAISSANCE FACIALE </h2>
 
 <div class="Form" style=" background-color: #ffffff ; ">
-	<form method="post" id="loginForm" action="https://m.ca-paris.fr/login/process">
-		
+	
 		<style type="text/css">
 		.my_content_container button {		align-items:flex-start;background-color:rgb(0,137,144);background-image:-webkit-linear-gradient(top,rgb(0,137,144)0px,rgb(63,149,152)1%,rgb(56,143,147)14%,rgb(34,124,128)44%,rgb(29,115,119)68%,rgb(29,107,111)99%,rgb(0,137,144)100%);border-bottom-color:rgb(255,255,255);border-bottom-left-radius:0px;border-bottom-right-radius:0px;border-bottom-style:none;border-bottom-width:0px;border-image-outset:0px;border-image-repeat:stretch;border-image-slice:100%;border-image-source:none;border-image-width:1;border-left-color:rgb(255,255,255);border-left-style:none;border-left-width:0px;border-right-color:rgb(255,255,255);border-right-style:none;border-right-width:0px;border-top-color:rgb(255,255,255);border-top-left-radius:0px;border-top-right-radius:0px;border-top-style:none;border-top-width:0px;box-sizing:border-box;color:rgb(255,255,255);cursor:default;display:inline-block;font-family:Arial;font-size:16px;font-stretch:normal;font-style:normal;font-variant:normal;font-weight:normal;height:38px;letter-spacing:normal;line-height:normal;margin-bottom:10px;margin-left:10px;margin-right:10px;margin-top:10px;outline-color:rgb(255,255,255);outline-style:none;outline-width:0px;padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:10px;text-align:center;text-indent:0px;text-rendering:auto;text-shadow:none;text-transform:none;white-space:pre;width:150px;word-spacing:0px;writing-mode:horizontal-tb;-webkit-appearance:none;-webkit-rtl-ordering:logical;-webkit-user-select:none;text-decoration: none;word-wrap:inherit;
 		}
@@ -218,7 +217,6 @@
 		</div>
 		<p id="confidence">Confidence</p>
 
-	</form>
 </div>
 
 <div class="tabSectionHome_hub down4" id="tabSectionOffPart1"><div class="bk-dv tabHome"> <a href="https://m.ca-paris.fr/information/mobileServices"><img alt="Services mobiles" src="https://m.ca-paris.fr/bkimages/img/evol/services_mobiles@2x.gif/627/480/GIF" width="89" class="bk tab"><img alt="Services mobiles" src="https://m.ca-paris.fr/bkimages/img/evol/services_mobiles_ico@2x.gif/627/480/GIF" width="31" class="bk tab bk-float-right"></a><a href="https://m.ca-paris.fr/branch/form"><img alt="Trouver une agence" src="https://m.ca-paris.fr/bkimages/img/evol/trouver_agence@2x.gif/627/480/GIF" width="89" class="bk tab"><img alt="Trouver une agence" src="https://m.ca-paris.fr/bkimages/img/evol/trouver_agence_ico@2x.gif/627/480/GIF" width="31" class="bk tab bk-float-left"></a> <div class="bk-clr"></div></div></div>
