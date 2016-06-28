@@ -142,7 +142,7 @@
 
 			// Find similarities to authorize access
 			function findsimilars(faceID) {
-				var confidence = false;
+				var confidence = 0;
 				$.ajax({		
 					url: 'https://api.projectoxford.ai/face/v1.0/findsimilars',
 					type: 'POST',
