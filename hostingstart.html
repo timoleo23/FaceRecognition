@@ -99,12 +99,12 @@
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
-						'Content-Type':'application/json',
-//						'Content-Type':'application/octet-stream',
+//						'Content-Type':'application/json',
+						'Content-Type':'application/octet-stream',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
-//					data: binaryData,
+//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+					data: binaryData,
 					processData: false,
 					async: false,
 					error: function( errorThrown ){
@@ -191,11 +191,11 @@
 	client supports video/camera, but for the sake of illustrating the 
 	elements involved, they are created with markup (not JavaScript)
 -->
-	<video id="video" width="640" height="480" autoplay></video>
+	<video id="video" width="640" height="480" style="margin: auto; display: block;" autoplay></video>
 	<p><button id="detectface" style="margin:0 auto; display:block;">Detect Faces</button></p>
 	<p><button id="addtofacelist" style="margin:0 auto; display:block;">Add to Face list</button></p>
 	<p id="canvasHolder">
-		<canvas id="canvas" width="640" height="480"></canvas>
+		<canvas id="canvas" width="640" height="480" style="margin: auto; display: block;"></canvas>
 	</p>
 	<p><img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage" style="display:none;"/></p>
 	
