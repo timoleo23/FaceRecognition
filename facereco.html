@@ -99,11 +99,11 @@
 
 			function logintest(level,confidence) {
 				if( confidence > level) {
-			//		document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
-					window.location.href = './acces_ok.html?confidence' + confidence;
+					document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
+			//		window.location.href = './acces_ok.html?confidence=' + confidence;
 				} else {
-			//		document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
-					window.location.href = './acces_ko.html?confidence' + confidence;
+					document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
+			//		window.location.href = './acces_ko.html?confidence=' + confidence;
 				}
 			}
 			
@@ -119,8 +119,8 @@
 						'Content-Type':'application/octet-stream',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
-					data: binaryData,
+					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+//					data: binaryData,
 					processData: false,
 					async: false,
 					error: function( errorThrown ){
@@ -220,8 +220,8 @@
 		<div class="fsbmit my_content_container">
 			<button id="snap">Vérifier Identité</button>
 		</div>
-<!--		<p id="confidence">Confidence</p>
--->
+		<p id="confidence"></p>
+
 </div>
 
 <div class="tabSectionHome_hub down4" id="tabSectionOffPart1"><div class="bk-dv tabHome"> <a href="https://m.ca-paris.fr/information/mobileServices"><img alt="Services mobiles" src="https://m.ca-paris.fr/bkimages/img/evol/services_mobiles@2x.gif/627/480/GIF" width="89" class="bk tab"><img alt="Services mobiles" src="https://m.ca-paris.fr/bkimages/img/evol/services_mobiles_ico@2x.gif/627/480/GIF" width="31" class="bk tab bk-float-right"></a><a href="https://m.ca-paris.fr/branch/form"><img alt="Trouver une agence" src="https://m.ca-paris.fr/bkimages/img/evol/trouver_agence@2x.gif/627/480/GIF" width="89" class="bk tab"><img alt="Trouver une agence" src="https://m.ca-paris.fr/bkimages/img/evol/trouver_agence_ico@2x.gif/627/480/GIF" width="31" class="bk tab bk-float-left"></a> <div class="bk-clr"></div></div></div>
