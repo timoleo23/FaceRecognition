@@ -89,14 +89,6 @@
 				
 			}, false);
 			
-			// Converts canvas to an image
-			function convertCanvasToImage(canvas) {
-				var image = new Image();
-				image.src = canvas.toDataURL("image/png");
-				image.id = "pngimage";
-				return image;
-			}
-
 			function logintest(level,confidence) {
 				if( confidence > level) {
 			//		document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
@@ -220,7 +212,7 @@
 		<div class="fsbmit my_content_container">
 			<button id="snap">Vérifier Identité</button>
 		</div>
-		<p id="confidence"></p>
+		<p id="confidence" style="display:none;"></p>
 
 </div>
 

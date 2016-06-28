@@ -10,6 +10,12 @@
 
 		// Put event listeners into place
 		window.addEventListener("DOMContentLoaded", function() {
+		//	// Get the image
+		//	var sampleImage = document.getElementById("pngimage"),
+		//		canvasinit = convertImageToCanvas(sampleImage);
+		//	// Actions
+		//	document.getElementById("canvasHolder").appendChild(canvasinit);
+			
 			// Grab elements, create settings, etc.
 			var canvas = document.getElementById("canvas"),
 				context = canvas.getContext("2d"),
@@ -38,54 +44,67 @@
 			}
 		
 			// Trigger photo take
-			document.getElementById("snap").addEventListener("click", function() {
+			document.getElementById("detectface").addEventListener("click", function() {
 				context.drawImage(video, 0, 0, 640, 480);	
-				pngHolder = document.getElementById("pngHolder")
-				pngimage = document.getElementById("pngimage")				
-
-//				var image = convertCanvasToImage(canvas);
-//				pngHolder.replaceChild( image , pngimage );
+					
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
 				// Detect faces on the image calling the FACE API
-				var faceID = detect(binaryData);
-				console.log(faceID);
-				var confidence = findsimilars(faceID);
-				console.log(confidence);
-				logintest(0.8,confidence);	// Seuil de confiance à 80% de match
+				var data = detect(binaryData);
+			//	console.log(JSON.stringify( data ));
+				detect_result(data, context);
+				
+				//var confidence = findsimilars(faceID);
+				//console.log(confidence);
+				//logintest(0.8,confidence);	// Seuil de confiance à 80% de match
 				
 			}, false);
-			
-			// Converts canvas to an image
-			function convertCanvasToImage(canvas) {
-				var image = new Image();
-				image.src = canvas.toDataURL("image/png");
-				image.id = "pngimage";
-				return image;
+					
+			// Converts image to canvas; returns new canvas element
+			function convertImageToCanvas(image) {
+				var canvas = document.createElement("canvas");
+				canvas.id = "canvas";
+				canvas.width = image.width;
+				canvas.height = image.height;
+				canvas.getContext("2d").drawImage(image, 0, 0);
+				return canvas;
 			}
 
-			function logintest(level,confidence) {
-				if( confidence > level) {
-					document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
-				} else {
-					document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
-				}
+			function detect_result(data, context) {
+				console.log(JSON.stringify( data ));
+				//context.clearRect(0, 0, canvas.width, canvas.height);
+				context.beginPath();
+				data.forEach(function(face){
+					var rect = face.faceRectangle;
+					context.rect(rect.left, rect.top, rect.width, rect.height);
+					context.lineWidth = 7;
+					context.strokeStyle = 'red';
+					context.stroke();
+					var gender = face.faceAttributes.gender;
+					var age = face.faceAttributes.age;
+					context.font = '30pt Calibri';
+					context.textAlign = 'center';
+					context.fillStyle = 'blue';
+					context.fillText(gender + ' / ' + age + ' ans', rect.left+(rect.width/2), rect.top-10);
+				});
+				document.getElementById("detec_result").innerHTML = "<b>Raw data :</b> <br>" + JSON.stringify( data );
 			}
 			
 			// Detect faces on the image calling the FACE API
 			function detect(binaryData){
-				var faceID = true;
+				//var faceID = true;
+				var getdata = false;
 				$.ajax({		
-					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender',
+					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceLandmarks=true&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
-//						'Content-Type':'application/json',
-						'Content-Type':'application/octet-stream',
+						'Content-Type':'application/json',
+//						'Content-Type':'application/octet-stream',
 						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
 					},			
-//					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
-					data: binaryData,
+					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
+//					data: binaryData,
 					processData: false,
 					async: false,
 					error: function( errorThrown ){
@@ -93,16 +112,17 @@
 						return errorThrown;
 					},
 					success: function( data ){
-						console.log( JSON.stringify( data ) );	
-						data.forEach(function(face){
+					//	console.log( JSON.stringify( data ) );
+						getdata = data;						
+					//	data.forEach(function(face){
 					//		console.log( face.faceAttributes.gender);
 					//		console.log( face.faceAttributes.age);
 					//		console.log( face.faceId);
-							faceID = face.faceId;
-						});
+					//		faceID = face.faceId;
+					//	});
 					}
 				});
-				return faceID;
+				return getdata;
 			}
 
 			// Find similarities to authorize access
@@ -172,9 +192,14 @@
 	elements involved, they are created with markup (not JavaScript)
 -->
 	<video id="video" width="640" height="480" autoplay></video>
-	<button id="snap" class="sexyButton">Login</button>
-	<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-	<p id="confidence"></p>
+	<p><button id="detectface" style="margin:0 auto; display:block;">Detect Faces</button></p>
+	<p><button id="addtofacelist" style="margin:0 auto; display:block;">Add to Face list</button></p>
+	<p id="canvasHolder">
+		<canvas id="canvas" width="640" height="480"></canvas>
+	</p>
+	<p><img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage" style="display:none;"/></p>
+	
+	<p id="detec_result" style="font-family:courier; font-size:12px;"></p>
 
 </body>
 </html>
