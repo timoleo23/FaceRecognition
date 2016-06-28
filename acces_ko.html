@@ -15,7 +15,9 @@
 	<link rel="stylesheet" href="./home_files/bk.css">
 	<link rel="stylesheet" href="./home_files/wope.css">
 	<link href="./home_files/default.css" rel="stylesheet" type="text/css">
-
+	
+	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.js"></script>
+	
 <!--
 	<script type="text/javascript" src="./home_files/bk.js"></script>
 	<script type="text/javascript" src="./home_files/jquery-2.1.4.js"></script>
@@ -31,6 +33,32 @@
 		var idBam="88200";var idClient="50580000"+"|"+idBam+"_CLI_2";var urlCormetrics="data.de.coremetrics.com";var domain="ca-paris.fr";if(""){var chapter="";var page="";var idPartner="";var attributes=idPartner+"-_--_--_--_--_--_--_--_-"+idBam;var userLogged="false";var userAcceptCmCookies="true";var registartionId=idBam+"-"+idPartner;if(userAcceptCmCookies==="true"){cmSetClientID(idClient,true,urlCormetrics,domain);cmSetupOther({"cm_JSFCoreCookieExpireSeconds":"33696000"});cmCreatePageviewTag(page,chapter,"","",attributes);Bk.onePageLoaded(function(){if(userLogged==="true"){cmCreateRegistrationTag(registartionId,null,null,null,null,null,"-_--_--_--_--_--_--_--_-"+idBam);};});}}
 	</script>
 -->	
+	<script>
+
+		// Put event listeners into place
+		window.addEventListener("DOMContentLoaded", function() {
+			$.urlParam = function(name){
+				var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+				if (results==null){
+				   return null;
+				}
+				else{
+				   return results[1] || 0;
+				}
+			}
+		}, false);
+
+	</script>
+	   
+	<script type="text/javascript">               
+		jQuery(function($){
+			console.log("jQuery est prêt !");
+			var confidence = (Number(decodeURIComponent($.urlParam('confidence'))) * 100).toFixed(2);
+			console.log('Confidence: ' + confidence + '%');
+			document.getElementById("erreur").innerHTML = ( confidence + "%");
+		});
+    </script>
+	
 </head>
 
 <body>
@@ -43,8 +71,12 @@
 		</h1>
 		<div class="bk-dv " id="aside_content_cover" style="margin:0;padding:0;-webkit-transform: translate3d(0,0,0);opacity:0;"><div class="bk-clr"></div></div>
 		<div id="contentWithoutMenuAndFooter"><div id="defaultSection"><div class="bk-dv padded bolded" style="color:#ec0165;">
-			<b> Identification échouée</b><br>
-			<b> Taux de reconnaissance : </b>
+			<p><b>Identification échouée</b></p>
+			<p>
+				<b>Taux de reconnaissance insuffisant : </b>
+				<b id="erreur"></b>
+			</p>
+			
 		<div class="bk-clr"></div></div><div class="bk-error" id="errorSection"></div></div></div>
 		<div id="transitionLoaderSection" style="display:none"></div>
 		<div>

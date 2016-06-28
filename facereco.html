@@ -99,11 +99,11 @@
 
 			function logintest(level,confidence) {
 				if( confidence > level) {
-					document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
-			//		window.location.href = './acces_ok.html?confidence=' + confidence;
+			//		document.getElementById("confidence").innerHTML = ("Accès autorisé (confiance : " + (confidence * 100) + "%)");
+					window.location.href = './acces_ok.html?confidence=' + confidence;
 				} else {
-					document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
-			//		window.location.href = './acces_ko.html?confidence=' + confidence;
+			//		document.getElementById("confidence").innerHTML = ("Accès refusé (confiance : " + (confidence * 100) + "%)");
+					window.location.href = './acces_ko.html?confidence=' + confidence;
 				}
 			}
 			
