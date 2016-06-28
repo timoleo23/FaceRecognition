@@ -1,0 +1,4 @@
+
+function equalizingHeights(array){if(array!=undefined){maxHeight=array[0].offsetHeight;for(var i=1;i<array.length;i++){array[i].offsetHeight>maxHeight?maxHeight=array[i].offsetHeight:maxHeight=maxHeight;}
+for(var i=0;i<array.length;i++){array[i].style.height=maxHeight+"px";}}}
+var equalizingHeightsForCredits=function(){if(document.getElementById("listCreditsTable")){equalizingHeights(document.getElementById("listCreditsTable").getElementsByTagName("td"));}};var equalizingHeightsForAccounts=function(){if(document.getElementById("accountListTable")){equalizingHeights(document.getElementById("accountListTable").getElementsByTagName("td"));}};Bk.onPageLoaded(equalizingHeightsForCredits);Bk.onPageLoaded(equalizingHeightsForAccounts);Bk.Event.onOrientationChange(equalizingHeightsForCredits);Bk.Event.onOrientationChange(equalizingHeightsForAccounts);
