@@ -199,6 +199,11 @@
 			  return blob;
 			}
 			
+			// Timer to mock "Face-recognition" processing
+			document.getElementById("timer").addEventListener("click", function() {
+				window.setTimeout(function(){window.location.href = './acces_ok.html';}, 1500);
+			}, false);				
+			
 		}, false);
 
 	</script>
@@ -224,11 +229,13 @@
 		}
 		</style>
 		
-		<video id="video" width="400" height="320" autoplay></video>
+		<video id="video" width="400" height="320" style="margin: auto; display: block;" autoplay></video>
 		<canvas id="canvas" width="400" height="320" style="display:none;"></canvas>
 		
 		<div class="fsbmit my_content_container">
-			<button id="snap">Vérifier Identité</button>
+		<!-- Change move style="display: none;" depending on wich scenario you want to activate -->
+			<button style="display: none;" id="snap">Vérifier Identité</button>
+			<button id="timer">Vérifier Identité</button>
 		</div>
 		<p id="confidence" style="display:none;"></p>
 
