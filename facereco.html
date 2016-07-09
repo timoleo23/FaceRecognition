@@ -16,6 +16,24 @@
 	<link rel="stylesheet" href="./home_files/wope.css">
 	<link href="./home_files/default.css" rel="stylesheet" type="text/css">
 
+	<!-- 
+	To collect end-user usage analytics about your application, 
+	insert the following script into each page you want to track.
+	Place this code immediately before the closing </head> tag,
+	and before any other scripts. Your first data will appear 
+	automatically in just a few seconds.
+
+	<script type="text/javascript">
+	  var appInsights=window.appInsights||function(config){
+		function r(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s=u.createElement(o),i,f;for(s.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace"];i.length;)r("track"+i.pop());return r("setAuthenticatedUserContext"),r("clearAuthenticatedUserContext"),config.disableExceptionTracking||(i="onerror",r("_"+i),f=e[i],e[i]=function(config,r,u,e,o){var s=f&&f(config,r,u,e,o);return s!==!0&&t["_"+i](config,r,u,e,o),s}),t
+		}({
+			instrumentationKey:"3be21b6b-8d1b-4aa5-90f4-aadc06744cc5"
+		});
+		   
+		window.appInsights=appInsights;
+		appInsights.trackPageView();
+	</script>
+	-->
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.js"></script>
 <!--	
 	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js"></script>
@@ -181,6 +199,11 @@
 			  return blob;
 			}
 			
+			// Timer to mock "Face-recognition" processing
+			document.getElementById("timer").addEventListener("click", function() {
+				window.setTimeout(function(){window.location.href = './acces_ok.html';}, 1500);
+			}, false);				
+			
 		}, false);
 
 	</script>
@@ -206,11 +229,13 @@
 		}
 		</style>
 		
-		<video id="video" width="400" height="320" autoplay></video>
+		<video id="video" width="400" height="320" style="margin: auto; display: block;" autoplay></video>
 		<canvas id="canvas" width="400" height="320" style="display:none;"></canvas>
 		
 		<div class="fsbmit my_content_container">
-			<button id="snap">Vérifier Identité</button>
+		<!-- Change move style="display: none;" depending on wich scenario you want to activate -->
+			<button style="display: none;" id="snap">Vérifier Identité</button>
+			<button id="timer">Vérifier Identité</button>
 		</div>
 		<p id="confidence" style="display:none;"></p>
 
