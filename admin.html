@@ -109,13 +109,13 @@
 				//var faceID = true;
 				var getdata = false;
 				$.ajax({		
-					url: 'https://api.projectoxford.ai/face/v1.0/detect?returnFaceLandmarks=true&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses',
+					url: 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceLandmarks=true&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
 //						'Content-Type':'application/json',
 						'Content-Type':'application/octet-stream',
-						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+						'Ocp-Apim-Subscription-Key':'18863724e4e4410e96d9f7d4758eaddf'
 					},			
 //					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
 					data: binaryData,
@@ -142,13 +142,13 @@
 			function addtofacelist(binaryData, faceListId) {
 				var result = false;
 				$.ajax({		
-					url: 'https://api.projectoxford.ai/face/v1.0/facelists/' + faceListId + '/persistedFaces',
+					url: 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/facelists/' + faceListId + '/persistedFaces',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
 //						'Content-Type':'application/json',
 						'Content-Type':'application/octet-stream',
-						'Ocp-Apim-Subscription-Key':'ce2a8c99da534c629db74e0918bc2861'
+						'Ocp-Apim-Subscription-Key':'18863724e4e4410e96d9f7d4758eaddf'
 					},			
 //					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
 					data: binaryData,
