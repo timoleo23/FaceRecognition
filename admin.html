@@ -45,7 +45,7 @@
 		
 			// Trigger photo detect
 			document.getElementById("detectface").addEventListener("click", function() {
-				context.drawImage(video, 0, 0, 640, 480);	
+				context.drawImage(video, 0, 0, 400, 300);	
 					
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
@@ -101,7 +101,7 @@
 					context.fillStyle = 'blue';
 					context.fillText(gender + ' / ' + age + ' ans', rect.left+(rect.width/2), rect.top-10);
 				});
-				document.getElementById("detec_result").innerHTML = "<b>Raw data :</b> <br>" + JSON.stringify( data );
+				document.getElementById("detec_result").innerHTML =  JSON.stringify( data, null, 2 );
 			}
 			
 			// Detect faces on the image calling the FACE API
@@ -202,15 +202,15 @@
 	client supports video/camera, but for the sake of illustrating the 
 	elements involved, they are created with markup (not JavaScript)
 -->
-	<video id="video" width="640" height="480" style="margin: auto; display: block;" autoplay></video>
+	<video id="video" width="400" height="400" style="margin: auto; display: block;" autoplay></video>
 	<p><button id="detectface" style="margin:0 auto; display:block;">Detect Faces</button></p>
 	<p><button id="addtofacelist" style="margin:0 auto; display:block;">Add to Face list</button></p>
 	<p id="canvasHolder">
-		<canvas id="canvas" width="640" height="480" style="margin: auto; display: block;"></canvas>
+		<canvas id="canvas" width="400" height="300" style="margin: auto; display: block;"></canvas>
 	</p>
 	<p><img src="https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" id="pngimage" style="display:none;"/></p>
 	
-	<p id="detec_result" style="font-family:courier; font-size:12px;"></p>
+	<textarea  id="detec_result" class="UIInput" style="width:400px; height:500px; margin: auto; display: block;"></textarea>
 
 </body>
 </html>
