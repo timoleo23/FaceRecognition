@@ -51,6 +51,7 @@
 				context.drawImage(video, 0, 0, 400, 300);	
 			});
 					
+			}, false);		
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
 				// Detect faces on the image calling the FACE API
@@ -62,7 +63,6 @@
 				//console.log(confidence);
 				//logintest(0.8,confidence);	// Seuil de confiance à 80% de match
 				
-			}, false);
 
 			// Trigger add Face to list (authorized buddies)
 			document.getElementById("addtofacelist").addEventListener("click", function() {
@@ -189,7 +189,7 @@
 			  return blob;
 			}
 			
-		}, false);
+	//	}, false);
 
 	</script>
 	   
