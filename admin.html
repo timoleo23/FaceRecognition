@@ -26,6 +26,15 @@
 				};
 
 			// Put video listeners into place
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+					//video.src = window.URL.createObjectURL(stream);
+					video.srcObject = stream;
+                    video.play();
+                });
+            }
+
+            /* Legacy code below! */
 			if(navigator.getUserMedia) { // Standard
 				navigator.getUserMedia(videoObj, function(stream) {
 					video.src = stream;
@@ -109,13 +118,13 @@
 				//var faceID = true;
 				var getdata = false;
 				$.ajax({		
-					url: 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceLandmarks=true&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses',
+					url: 'https://northeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceLandmarks=true&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
 //						'Content-Type':'application/json',
 						'Content-Type':'application/octet-stream',
-						'Ocp-Apim-Subscription-Key':'9e2beb98a2f4455c8be3bd1afaf1742a'
+						'Ocp-Apim-Subscription-Key':'d57411e0b2034fda9e8338018d4dc7a7'
 					},			
 //					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
 					data: binaryData,
@@ -142,13 +151,13 @@
 			function addtofacelist(binaryData, faceListId) {
 				var result = false;
 				$.ajax({		
-					url: 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/facelists/' + faceListId + '/persistedFaces',
+					url: 'https://northeurope.api.cognitive.microsoft.com/face/v1.0/facelists/' + faceListId + '/persistedFaces',
 					type: 'POST',
 					dataType: 'JSON',
 					headers: {
 //						'Content-Type':'application/json',
 						'Content-Type':'application/octet-stream',
-						'Ocp-Apim-Subscription-Key':'9e2beb98a2f4455c8be3bd1afaf1742a'
+						'Ocp-Apim-Subscription-Key':'d57411e0b2034fda9e8338018d4dc7a7'
 					},			
 //					data: JSON.stringify( { "url": "https://facerecognitionaleki.azurewebsites.net/faces/aleki1.png" } ),
 					data: binaryData,
