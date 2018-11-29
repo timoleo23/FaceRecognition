@@ -10,46 +10,54 @@
 
 		// Put event listeners into place
 		window.addEventListener("DOMContentLoaded", function() {
+		//	// Get the image
+		//	var sampleImage = document.getElementById("pngimage"),
+		//		canvasinit = convertImageToCanvas(sampleImage);
+		//	// Actions
+		//	document.getElementById("canvasHolder").appendChild(canvasinit);
+			
 			// Grab elements, create settings, etc.
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-            var video = document.getElementById('video');
-            var mediaConfig =  { video: true };
-            var errBack = function(e) {
-            	console.log('An error has occurred!', e)
-            };
+			var canvas = document.getElementById("canvas"),
+				context = canvas.getContext("2d"),
+				video = document.getElementById("video"),
+				
 
-			// Put video listeners into place
-            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+			// Get access to the camera!
+			if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+				// Not adding `{ audio: true }` since we only want video now
+				navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
 					//video.src = window.URL.createObjectURL(stream);
 					video.srcObject = stream;
-                    video.play();
-                });
-            }
+					video.play();
+				});
+			}
 
-            /* Legacy code below! */
-            else if(navigator.getUserMedia) { // Standard
-				navigator.getUserMedia(mediaConfig, function(stream) {
+	/*			videoObj = { "video": true, "audio": false },
+				errBack = function(error) {
+					console.log("Video capture error: ", error.code); 
+				};
+
+			// Put video listeners into place
+			if(navigator.getUserMedia) { // Standard
+				navigator.getUserMedia(videoObj, function(stream) {
 					video.src = stream;
 					video.play();
 				}, errBack);
 			} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-				navigator.webkitGetUserMedia(mediaConfig, function(stream){
+				navigator.webkitGetUserMedia(videoObj, function(stream){
 					video.src = window.webkitURL.createObjectURL(stream);
 					video.play();
 				}, errBack);
-			} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-				navigator.mozGetUserMedia(mediaConfig, function(stream){
+			} else if(navigator.mozGetUserMedia) { // WebKit-prefixed
+				navigator.mozGetUserMedia(videoObj, function(stream){
 					video.src = window.URL.createObjectURL(stream);
 					video.play();
 				}, errBack);
 			}
-
-			// Trigger photo take
-            document.getElementById("detectface").addEventListener("click", function() {
+	*/	
+			// Trigger photo detect
+			document.getElementById("detectface").addEventListener("click", function() {
 				context.drawImage(video, 0, 0, 400, 300);	
-			});
 					
 				var binaryData = dataURItoBlob( canvas.toDataURL("image/png") );
 				
