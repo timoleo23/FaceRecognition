@@ -72,7 +72,7 @@
 
 			// Put video listeners into place
             if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+                navigator.mediaDevices.getUserMedia(videoObj).then(function(stream) {
 					//video.src = window.URL.createObjectURL(stream);
 					video.srcObject = stream;
                     video.play();
